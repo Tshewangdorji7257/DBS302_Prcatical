@@ -52,7 +52,7 @@ It creates empty collections that will store our e-commerce data.
 ## PART 2: INSERT SAMPLE DATA
 
 ### Step 2.1: Insert Users Data
-It insert sample users into the users collection
+It insert sample users into the users collection.
 ```
 db.users.insertMany([
   {
@@ -104,6 +104,7 @@ db.categories.insertMany([
 ]);
 ```
 ![alt text](/asset/image-2.png)
+
 Inserted product categories like Electronics and Accessories.
 
 ---
@@ -162,6 +163,7 @@ db.products.insertMany([
 ]);
 ```
 ![alt text](/asset/image-3.png)
+
 Inserted 3 products with different attributes, prices and stock quantities.
 
 ---
@@ -214,6 +216,7 @@ db.orders.insertMany([
 ]);
 ```
 ![alt text](/asset/image-4.png)
+
 Inserted 2 customer orders. Each order contains multiple items with pricing information.
 
 ---
@@ -226,6 +229,7 @@ View all users in the collection
 db.users.find().pretty();
 ```
 ![alt text](/asset/image-5.png)
+
 It displays all customer records in a readable format.
 
 ---
@@ -238,6 +242,7 @@ db.products.find({
 }).pretty();
 ```
 ![alt text](/asset/image-6.png)
+
 It shows products priced between $10 and $100.
 
 ---
@@ -250,6 +255,7 @@ db.orders.find({
 }).pretty();
 ```
 ![alt text](/asset/image-7.png)
+
 It shows all completed/paid orders.
 
 ---
@@ -294,6 +300,7 @@ db.orders.aggregate([
 ]);
 ```
 ![alt text](/asset/image-8.png)
+
 It shows total revenue and number of orders for each day. Useful for sales tracking.
 
 ---
@@ -317,6 +324,7 @@ db.orders.aggregate([
 ]);
 ```
 ![alt text](/asset/image-9.png)
+
 It shows the top 5 best-selling products by revenue. $unwind breaks down order items, then groups by product.
 
 ---
@@ -361,6 +369,7 @@ db.orders.aggregate([
 ]);
 ```
 ![alt text](/asset/image-10.png)
+
 It shows customer spending patterns. $lookup joins with users collection to show customer names.
 
 ---
@@ -393,6 +402,7 @@ db.products.aggregate([
 ]);
 ```
 ![alt text](/asset/image-11.png)
+
 It shows product details with category names using $lookup to join categories collection.
 
 ---
@@ -408,6 +418,7 @@ db.orders.createIndex(
 );
 ```
 ![alt text](/asset/image-12.png)
+
 This index speeds up queries that filter orders by user and sort by creation date.
 
 ---
@@ -421,6 +432,7 @@ db.orders.createIndex(
 );
 ```
 ![alt text](/asset/image-13.png)
+
 It supports queries filtering by status and date range. Field order matters for performance.
 
 ---
@@ -435,6 +447,7 @@ db.products.createIndex(
 ```
 ![alt text](/asset/image-14.png)
 ![alt text](/asset/image-16.png)
+
 It helps queries that filter products by category and sort by price.
 
 ---
@@ -451,6 +464,7 @@ db.products.createIndex(
 );
 ```
 ![alt text](/asset/image-15.png)
+
 It enables searching products by keywords in name and tags with weighted importance.
 
 ---
@@ -464,6 +478,7 @@ db.products.find(
 ).sort({ score: { $meta: "textScore" } });
 ```
 ![alt text](/asset/image-17.png)
+
 It searches products containing "wireless" or "keyboard", ranked by relevance score.
 
 ---
@@ -479,6 +494,7 @@ db.orders.find(
 ```
 ![alt text](/asset/image-18.png)
 ![alt text](/asset/image-19.png)
+
 It shows the query plan. Look for "COLLSCAN" (slow - scans all documents) vs "IXSCAN" (fast - uses index).
 
 ---
@@ -492,6 +508,7 @@ db.orders.find(
 ```
 ![alt text](/asset/image-20.png)
 ![alt text](/asset/image-21.png)
+
 It should now show "IXSCAN" and much lower "totalDocsExamined" count - indicating index is being used.
 
 ---
@@ -504,6 +521,7 @@ List indexes created on orders collection
 db.orders.getIndexes();
 ```
 ![alt text](/asset/image-22.png)
+
 It shows all indexes created with their field specifications.
 
 ---
@@ -514,6 +532,7 @@ Remove an unused index
 db.orders.dropIndex("idx_orders_user_createdAt");
 ```
 ![alt text](/asset/image-23.png)
+
 It removes the index to free up space and reduce write overhead.
 
 ---
@@ -531,6 +550,7 @@ db.orders.aggregate([
 ]);
 ```
 ![alt text](/asset/image-24.png)
+
 It shows count of orders in each status (PAID, PENDING, SHIPPED, CANCELLED).
 
 ---
@@ -551,6 +571,7 @@ db.orders.aggregate([
 ]);
 ```
 ![alt text](/asset/image-25.png)
+
 It shows overall business metrics - total revenue, average order value, and order count.
 
 ---
@@ -575,7 +596,9 @@ db.orders.aggregate([
 ]);
 ```
 ![alt text](/asset/image-26.png)
+
 It shows orders containing 2 or more items, sorted by total amount.
+
 
 # Common Mistakes and How to Avoid Them
 
