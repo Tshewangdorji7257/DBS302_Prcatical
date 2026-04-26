@@ -2,27 +2,27 @@
 
 # AIM
 
-To design and implement an e‑commerce platform schema using MongoDB, write advanced queries with the aggregation framework, and apply indexing and query analysis techniques to optimize performance for real‑world workloads.
+To design and develop an e-commerce schema using MongoDB, build complex aggregation queries using the aggregation pipeline and indexing/query optimization techniques.
 
-# Objectives
+# Objective
 
-By the end of this practical, the student should be able to:
+By the completion of the above lab, we will be able to:
 
-- Model a realistic e‑commerce domain (users, products, orders, etc.) using MongoDB’s document‑oriented data model and best‑practice patterns.
-- Implement the designed schema as MongoDB collections with appropriate fields and sample data.
-- Construct non‑trivial aggregation pipelines for analytics and reporting use cases (sales, top products, customer statistics).
-- Create and tune indexes (single, compound, multikey, text) to support common read/write patterns efficiently.
-- Use `explain()` and basic profiling techniques to identify slow queries and verify the impact of optimizations.
+- Design an actual domain e-commerce scenario with users, products, sales/orders and so on in MongoDB using the document-based approach.
+- Implement the above mentioned schema by creating respective collections along with required fields and data samples.
+- Build aggregation pipelines with real world queries used for analytics purpose.
+- Index collections using different types of indexes (i.e., single index, compound index, multi key index, text search index).
+- Optimize queries with respect to performance using `explain` command.
 
 # Expected Learning Outcomes
 
-After completing this practical, we will be able to:
+Following this practical exercise, we will be able to:
 
-- Apply “query‑first” schema design: structure data according to dominant access patterns rather than purely normalization rules.
-- Differentiate between embedding and referencing in MongoDB and justify their choices for different relationships in an e‑commerce context.
-- Implement and interpret multi‑stage aggregation pipelines using operators like `$match`, `$group`, `$project`, `$lookup`, `$sort`, `$limit`, and accumulator expressions.
-- Design effective indexes that follow best practices (e.g., Equality–Sort–Range ordering for compound indexes) and evaluate query plans using `explain("executionStats")`.
-- Recognize and avoid common anti‑patterns that harm performance, such as unbounded document growth and collection scans.
+- Utilize "query-first" schema design: organize data based on prevailing access methods rather than strict normalization principles alone.
+- Distinguish between embedding and referencing in MongoDB and explain their appropriateness for different types of relations within the domain of e-commerce.
+- Create and understand complex stages in aggregation pipelines with the help of operators such as `$match`, `$group`, `$project`, `$lookup`, `$sort`, `$limit`, and accumulator functions.
+- Create efficient indexes according to best practices (e.g., Equality-Sort-Range indexing order in compound indexes) and analyze queries through `explain("executionStats")`.
+- Identify and prevent anti-patterns that negatively impact performance, including unconstrained document expansion and scanning collections.
 
 ## PART 1: DATABASE AND COLLECTION SETUP
 
@@ -602,23 +602,23 @@ It shows orders containing 2 or more items, sorted by total amount.
 
 # Common Mistakes and How to Avoid Them
 
-## Designing the Schema Like a Relational Database
+## Designing the Schema As If It Were a Relational Database
 
-**Mistake:** Creating many small collections and joining them everywhere with `$lookup` as if using foreign keys.
+**Mistake:** Over-relying on `$lookup`, similar to foreign key relationships in relational databases, where there are too many collections involved.
 
-**Fix:** Embed whenever data is tightly coupled and read together (e.g., order items inside orders).
+**Correction:** Embed documents when they are highly related and always fetched in one request (for example, putting order items within orders).
 
-## Unbounded Document Growth
+## Unlimited Document Growth
 
-**Mistake:** Continuously pushing new subdocuments (e.g., infinite history) into an array in a single document, causing very large documents.
+**Mistake:** Repeatedly adding sub-documents to an array in a document (like never-ending history) that can be unreasonably long.
 
-**Fix:** Split into separate documents or collections when arrays can grow without bound.
+**Correction:** Splitting the documents into different documents or even collections when the arrays are potentially unlimited.
 
-## Missing Indexes on Frequent Queries
+## No Indexes for Common Queries
 
-**Mistake:** Running filters and sorts on large collections without indexes, leading to `COLLSCAN` and poor performance.
+**Mistake:** Using $filter and sort operations on large collections without indexing, resulting in `COLLSCAN`.
 
-**Fix:** Identify high‑frequency queries, create suitable indexes, and verify with `explain("executionStats")`.
+**Correction:** Recognizing frequent requests, creating appropriate indexes, and checking through `explain("executionStats")`.
 
 ## Inefficient Compound Index Ordering
 
