@@ -640,11 +640,11 @@ It shows orders containing 2 or more items, sorted by total amount.
 
 # Conclusion
 
-This practical saw me implement a MongoDB schema for an e-commerce site following the query-first approach. This involved creating four collections; users, categories, products, and orders, while making careful decisions about either embedding or referencing specific documents.
+In this practical implemented a MongoDB schema for an e-commerce site following the query-first approach. This involved creating four collections; users, categories, products, and orders while making careful decisions about either embedding or referencing specific documents.
 
-I built several non-trivial pipelines through which I was able to calculate daily sales, top products by total revenue, average order value per user, and view catalog products with their respective categories. Such processes involved the use of `$group`, `$unwind`, `$lookup` and `$project`.
+It built several non-trivial pipelines through which was able to calculate daily sales, top products by total revenue, average order value per user, and view catalog products with their respective categories. Such processes involved the use of `$group`, `$unwind`, `$lookup` and `$project`.
 
-The most crucial part of the process came when I optimized my MongoDB schema by building various types of indexes such as `single index`, `compound index` and `text index`. For instance, `userId` and `createdAt` made up of the `single index` that could allow a user to see his/her order history while `{ status: 1, createdAt: -1}` formed a `compound index` which would facilitate searches based on different statuses and creation date. The `explain("executionStats")` function helped me to verify the change from `COLLSCAN` to `IXSCAN`, fewer `totalDocsExamined` values and less time.
+The most crucial part of the process came when it optimized MongoDB schema by building various types of indexes such as `single index`, `compound index` and `text index`. For instance, `userId` and `createdAt` made up of the `single index` that could allow a user to see his/her order history while `{ status: 1, createdAt: -1}` formed a `compound index` which would facilitate searches based on different statuses and creation date. The `explain("executionStats")` function helped me to verify the change from `COLLSCAN` to `IXSCAN`, fewer `totalDocsExamined` values and less time.
 
 Anti-patterns avoided include over-embedding documents, uncontrolled growth, lack of indexes and wrong order of indexes. The attribute pattern on products helped demonstrate the usefulness of MongoDB in storing heterogeneous data.
 
