@@ -1,0 +1,22 @@
+{
+  "name": "mongodb-security-practical",
+  "version": "1.0.0",
+  "description": "MongoDB Security Practical - Authentication, RBAC, and TLS",
+  "main": "mongo_secure_demo.js",
+  "scripts": {
+    "start": "node mongo_secure_demo.js",
+    "demo": "node mongo_secure_demo.js"
+  },
+  "keywords": [
+    "mongodb",
+    "security",
+    "authentication",
+    "rbac",
+    "tls"
+  ],
+  "author": "DBS 302",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^6.0.0"
+  }
+}
