@@ -1132,73 +1132,9 @@ exit
 
 ---
 
----
+## PHASE 4: PERFORMANCE BENCHMARKING 
 
-## PHASE 4: COMPARATIVE ANALYSIS & OBSERVATIONS
-
-### Summary: Query Patterns Comparison
-
-Here's how each database handles the same logical query:
-**Query**: "Retrieve the 10 most recent posts from a specific user"
-
-#### Redis Approach (2 round trips):
-```redis
-LRANGE timeline:1001 0 9           -- Get post IDs
-HGETALL post:p001                  -- Get post details (repeat for each)
-```
-- **Time complexity**: O(N+M)
-- **Note**: Requires manual round trips to get full post data
-
-#### MongoDB Approach (1 round trip):
-```mongodb
-db.posts.find({ user_id: "user_1001" })
-  .sort({ created_at: -1 })
-  .limit(10)
-```
-- **Time complexity**: O(log N) with index
-- **Advantage**: Complete documents in one query
-
-#### Cassandra Approach (1 round trip):
-```cassandra
-SELECT * FROM posts_by_user
-WHERE user_id = 11111111-1111-1111-1111-111111111111
-LIMIT 10;
-```
-- **Time complexity**: O(log N) partition lookup
-- **Note**: Data already in optimal order (clustering columns)
-
----
-
-### Key Observations
-
-#### Redis Observations:
-- ✅ Operates entirely in memory → sub-millisecond operations
-- ✅ Perfect for caching, sessions, real-time counters
-- ❌ No schema enforcement
-- ❌ No native joins - relationships require multiple keys
-- ❌ Complex queries need client-side logic
-
-#### MongoDB Observations:
-- ✅ Flexible schema with nested documents (embedding)
-- ✅ Powerful aggregation framework for complex queries
-- ✅ Single query can return complex nested data
-- ❌ Requires discipline - no schema validation by default
-- ⚠️ Indexes are critical for production performance
-
-#### Cassandra Observations:
-- ✅ Extreme write throughput and linear scalability
-- ✅ Excellent for massive distributed systems
-- ✅ Data ordering handled at storage level
-- ❌ Limited query flexibility - must design tables per query
-- ❌ Cannot use ad-hoc queries like relational databases
-
----
-
----
-
-## PHASE 5: PERFORMANCE BENCHMARKING (OPTIONAL)
-
-If you want to measure performance across all three databases, follow these steps:
+To measure performance across all three databases.
 
 ### Step 5.1: Install Python Dependencies
 
@@ -1210,7 +1146,7 @@ pip install redis pymongo cassandra-driver
 
 ### Step 5.2: Create benchmark.py File
 
-Create a file named `benchmark.py` in your `nosql-practical-1` directory with this content:
+Create a file named `benchmark.py`.
 
 ```python
 import os
