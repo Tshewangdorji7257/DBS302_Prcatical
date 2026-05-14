@@ -42,73 +42,7 @@ async function main() {
     await client.connect();
     console.log("    ✓ Successfully connected to MongoDB\n");
 
-    // ======================const { MongoClient } = require("mongodb");
-const fs = require("fs");
-
-async function main() {
-  // Connection string with TLS enabled
-  const uri = "mongodb://appUser:appStrongPwd@127.0.0.1:27017/myapp?tls=true";
-
-  const client = new MongoClient(uri, {
-    tlsCAFile: "C:\\mongodb_tls\\ca.pem", // For Windows
-    // tlsCAFile: "/etc/mongo/tls/ca.pem", // For Linux
-  });
-
-  try {
-    console.log("Connecting to MongoDB with TLS and authentication...");
-    await client.connect();
-    console.log("✓ Successfully connected to MongoDB");
-
-    const db = client.db("myapp");
-    const customers = db.collection("customers");
-
-    // Insert a document
-    console.log("\n[1] Inserting document...");
-    const insertResult = await customers.insertOne({
-      name: "Node.js Client",
-      city: "Phuntsholing",
-      timestamp: new Date(),
-    });
-    console.log("✓ Inserted document with ID:", insertResult.insertedId);
-
-    // Find all documents
-    console.log("\n[2] Querying all customers...");
-    const docs = await customers.find({}).toArray();
-    console.log("✓ Found", docs.length, "documents:");
-    docs.forEach((doc, index) => {
-      console.log(`  ${index + 1}. ${doc.name} - ${doc.city}`);
-    });
-
-    // Update a document
-    console.log("\n[3] Updating a document...");
-    const updateResult = await customers.updateOne(
-      { name: "Node.js Client" },
-      { $set: { city: "Paro", updated: true } }
-    );
-    console.log("✓ Updated", updateResult.modifiedCount, "document");
-
-    // Count documents
-    console.log("\n[4] Counting documents...");
-    const count = await customers.countDocuments();
-    console.log("✓ Total customers:", count);
-
-    // Connection info
-    console.log("\n[5] Connection Status:");
-    console.log("✓ Database:", db.name);
-    console.log("✓ Collection:", customers.collectionName);
-    console.log("✓ TLS Enabled: Yes");
-    console.log("✓ Authentication: Enabled");
-
-    console.log("\n=== Demo Completed Successfully ===");
-  } catch (error) {
-    console.error("Error:", error.message);
-  } finally {
-    await client.close();
-    console.log("\nConnection closed.");
-  }
-}
-
-main().catch(console.error);====================
+    // ==========================================
     // [2] Get Database and Collection
     // ==========================================
     const db = client.db("myapp");
