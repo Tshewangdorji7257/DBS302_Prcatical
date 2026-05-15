@@ -452,8 +452,6 @@ use social_media_db
 
 ### Step 2.3: Create Users Collection
 
-Copy and paste the entire command at once:
-
 ```mongosh
 db.users.insertMany([
   {
@@ -639,7 +637,7 @@ db.posts.updateOne(
 db.posts.findOne({ _id: "post_p001" }).pretty()
 ```
 
-**Expected Output**: Post p001 should now have 1 like (user_1003) and 1 comment
+Post p001 should now have 1 like (user_1003) and 1 comment
 
 ---
 
@@ -760,9 +758,7 @@ exit
 
 ## PHASE 3: CASSANDRA - COLUMN-FAMILY SOCIAL MEDIA MODEL
 
-###  WAIT BEFORE PROCEEDING
-
-Cassandra takes **60-90 seconds** to fully initialize. 
+###  WAIT BEFORE PROCEEDINGm
 
 ```powershell
 Start-Sleep -Seconds 60
